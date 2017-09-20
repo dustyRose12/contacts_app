@@ -1,10 +1,21 @@
 <h1>Contacts</h1>
+<!-- finish writing the loop to show only current user's contacts, otherwise don't show anything -->
+<% if @current_user %>
+  <% @current_user.contacts.each do |contact| %>
+      <h3><%= contact.full_name %></h3>
+      <h4>email: <%= contact.email %></h4>
+      <h4>phone number: <%= contact.phone_number %></h4>
+      <h4>Bio: <%= contact.bio %></h4>
+      <br>
+    <% end %>
+<% else %>
+      <% @contacts.each do |contact| %>
+      <h2><%= contact.full_name %></h2>
+      <h4>email: <%= contact.email %></h4>
+      <h4>phone number: <%= contact.phone_number %></h4>
+      <h4>Bio: <%= contact.bio %></h4>
+      <br>
+      <% end %>
+  <% end %>
 
-<% @contacts.each do |contact| %>
-  <h2><%= contact.full_name %></h2>
-  <h4>email: <%= contact.email %></h4>
-  <h4>phone number: <%= contact.phone_number %></h4>
-  <h4>Bio: <%= contact.bio %></h4>
-  <br>
-<% end %>
 

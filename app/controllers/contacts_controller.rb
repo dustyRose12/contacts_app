@@ -2,6 +2,15 @@ class ContactsController < ApplicationController
 
   def index
     @contacts = Contact.all
+
+     search_term = params[:search_term]
+    if search_term
+      @contacts = @contacts.where("first_name iLIKE ? OR last_name iLIKE ? OR email iLIKE ?", "%#{search_term}%", "%#{search_term}%", "%#{search_term}%")
+    end 
+  end
+
+   def show
+    @contact = Contact.find_by(id: params[:id])
   end
 
   def new
@@ -13,6 +22,7 @@ class ContactsController < ApplicationController
                                     first_name: params[:first_name],
                                     middle_name: params[:middle_name],
                                     last_name: params[:last_name],
+                                    user_id: current_user.id,
                                     email: params[:email],
                                     phone_number: params[:phone_number],
                                     bio: params[:bio]
@@ -20,10 +30,6 @@ class ContactsController < ApplicationController
     contact.save
     flash[:success] = "Contact Successfully Created"
     redirect_to "/contacts/#{contact.id}"
-  end
-
-  def show
-    @contact = Contact.find(params[:id])
   end
 
   def edit

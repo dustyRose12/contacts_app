@@ -1,5 +1,7 @@
 class Contact < ApplicationRecord
 
+  belongs_to :user
+
   def friendly_updated_at
     updated_at.strftime("%b %e,  %Y ")
   end
@@ -7,6 +9,8 @@ class Contact < ApplicationRecord
   def full_name
     "#{first_name} #{middle_name} #{last_name}"
   end
+
+  
 
 
 
