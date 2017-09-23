@@ -4,6 +4,13 @@ class ContactsController < ApplicationController
     @contacts = Contact.all
 
      search_term = params[:search_term]
+
+     group_sort = params[:group_id]
+
+     if group_sort 
+      @contacts = Group.find_by(id: group_sort).contacts 
+    end
+
     if search_term
       @contacts = @contacts.where("first_name iLIKE ? OR last_name iLIKE ? OR email iLIKE ?", "%#{search_term}%", "%#{search_term}%", "%#{search_term}%")
     end 

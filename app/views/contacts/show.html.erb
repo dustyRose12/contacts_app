@@ -1,14 +1,18 @@
 <h1>Contact Info</h1>
-<h2>First name: <%= @contact.first_name %></h2>
-<h2>Middle name: <%= @contact.middle_name %></h2>
-<h2>Last name: <%= @contact.last_name %></h2>
+<h4>First name: <%= @contact.first_name %></h4>
+<h4>Middle name: <%= @contact.middle_name %></h4>
+<h4>Last name: <%= @contact.last_name %></h4>
 <h5>Updated On: <%= @contact.friendly_updated_at %></h5> 
-
+<br>
 <h3>Full Name: <%= @contact.full_name %></h3>
 
-<h3>email: <%= @contact.email %></h3>
-<h3>phone number: <%= @contact.phone_number %></h3>
-<h3>Bio: <%= @contact.bio %></h3>
+<h4>email: <%= @contact.email %></h4>
+<h4>phone #: <%= @contact.phone_number %></h4>
+<h4>Bio: <%= @contact.bio %></h4>
+
+<% @contact.groups.each do |group| %>
+      <h5>Category: <%= group.name %></h5>
+<% end %>
 
 <%=  link_to "Edit", "/contacts/#{@contact.id}/edit" %>
 <%= link_to "Delete", "/contacts/#{@contact.id}", method: :delete %>
