@@ -21,11 +21,11 @@ class ContactsController < ApplicationController
   end
 
   def new
-
+    @contact = Contact.new
   end
 
   def create
-    contact = Contact.new(
+    @contact = Contact.new(
                                     first_name: params[:first_name],
                                     middle_name: params[:middle_name],
                                     last_name: params[:last_name],
@@ -34,9 +34,13 @@ class ContactsController < ApplicationController
                                     phone_number: params[:phone_number],
                                     bio: params[:bio]
                                     )
-    contact.save
-    flash[:success] = "Contact Successfully Created"
-    redirect_to "/contacts/#{contact.id}"
+    if @contact.save
+      flash[:success] = "Contact Successfully Created"
+      redirect_to "/contacts/#{@contact.id}"
+    else
+      @errors = @contact.errors.full_messages
+      render "new.html.erb"
+    end
   end
 
   def edit
@@ -44,9 +48,9 @@ class ContactsController < ApplicationController
   end
 
   def update
-    contact = Contact.find(params[:id])
+    @contact = Contact.find(params[:id])
 
-    contact.assign_attributes(
+    @contact.assign_attributes(
                                           first_name: params[:first_name],
                                           middle_name: params[:middle_name],
                                           last_name: params[:last_name],
@@ -55,9 +59,14 @@ class ContactsController < ApplicationController
                                           bio: params[:bio]
                                     )
 
-    contact.save
-    flash[:success] = "Contact Successfully Updated"
-    redirect_to "/contacts/#{contact.id}"
+    if @contact.save
+      flash[:success] = "Contact Successfully Updated"
+      redirect_to "/contacts/#{@contact.id}"
+    else
+      #need to add the supplier line in here and fix it in the edit page too
+      @errors = @contact.errors.full_messages
+      render "edit.html.erb"
+    end
 
   end
 

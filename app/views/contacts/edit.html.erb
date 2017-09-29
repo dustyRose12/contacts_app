@@ -1,3 +1,9 @@
+<% if @errors %>
+  <% @errors.each do |error| %>
+    <h2><%= error %></h2>
+  <% end %>
+<% end %>
+
 <h1>Edit a Contact</h1>
 
 <%=form_tag "/contacts/#{@contact.id}", method: :patch do %> 
